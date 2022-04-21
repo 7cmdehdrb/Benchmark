@@ -35,33 +35,35 @@ python stress.py
 
 - Exit
 
-Press ESC
+```
+ESC
+```
 
 
 ## GUI
 
-![gui](image/gui.png.png)
+![gui](image/gui.png)
 
 ### Data Type
 
-    - Temperture (C)
-    - Clock (MHz)
-    - Load (%)
+- Temperture (C)
+- Clock (MHz)
+- Load (%)
 
 ### Core
 
-    - Select core 1 to 6
-    - Total CPU only provides Load
+- Select core 1 to 6
+- Total CPU only provides Load
 
 ### CPU Stress
 
-    - Disabled
-    - Use stress.py or other third-party program instead
+- Disabled
+- Use stress.py or other third-party program instead
 
 ### Text Edit
 
-    - Input CSV File from monitor.py
+- Input CSV File from monitor.py
 
 ### Slider
 
-    - Set display range 50 to 500 (tick)
+- Set display range 50 to 500 (tick)
