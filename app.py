@@ -307,6 +307,7 @@ class Ui_MainWindow(object):
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit.setGeometry(QtCore.QRect(540, 610, 521, 31))
         self.textEdit.setObjectName("textEdit")
+        self.textEdit.setPlaceholderText("CSV File Name")
 
         self.horizontalSlider = QtWidgets.QSlider(self.centralwidget)
         self.horizontalSlider.setGeometry(QtCore.QRect(840, 660, 201, 22))
