@@ -12,30 +12,30 @@ pip install -r requirements.txt
 
 ## How to use
 
-    - Start Logging
+- Start Logging
 
-    ```
-    python monitor.py
-    ```
-
-
-    - Start Benchmark UI
-    
-    ```
-    python app.py
-    ```
+```
+python monitor.py
+```
 
 
-    - Stress CPU (NOT RECOMMENDED)
+- Start Benchmark UI
 
-    ```
-    python stress.py
-    ```
+```
+python app.py
+```
 
 
-    - Exit
+- Stress CPU (NOT RECOMMENDED)
 
-    # Press ESC
+```
+python stress.py
+```
+
+
+- Exit
+
+Press ESC
 
 
 ## GUI
