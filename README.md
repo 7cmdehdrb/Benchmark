@@ -6,6 +6,8 @@
 
 ## How to install
 
+- OpenHardwareMonitor (.zip file)
+
 ```
 pip install -r requirements.txt
 ```
@@ -20,6 +22,8 @@ python monitor.py
 
 
 - Start Benchmark UI
+
+    - Run OpenHardwareMonitor.exe
 
 ```
 python app.py
