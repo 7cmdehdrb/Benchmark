@@ -22,6 +22,7 @@ from multiprocessing import Pool
 from multiprocessing import cpu_count
 import signal
 import csv
+from low_pass_filter import LowPassFilter
 
 
 file = None
@@ -36,10 +37,10 @@ load = []
 
 def programExit():
 
-    print("Press ESC to stop...")
+    print("Press F12 to stop...")
 
     while True:
-        if keyboard.read_key() == "esc":
+        if keyboard.read_key() == "f12":
             print("SHUTDOWN...")
             os._exit(1)
 
@@ -73,6 +74,10 @@ class Monitor(object):
         self.interval = interval
         self.core = None
         self.filter = []
+
+        self.Tlpf = LowPassFilter(cutoff_freq=0.5, ts=0.1)
+        self.Clpf = LowPassFilter(cutoff_freq=0.5, ts=0.1)
+        self.Llpf = LowPassFilter(cutoff_freq=0.5, ts=0.1)
 
         self.th = threading.Thread(target=self.readData)
         self.th.start()
@@ -137,13 +142,18 @@ class Monitor(object):
 
                 if tag == self.core:
                     if sensor_type == "Temperature":
-                        temperture.append(value)
+                        t = self.Tlpf.filter(value)
+                        clock.append(value)
+                        temperture.append(t)
 
                     if sensor_type == "Clock":
-                        clock.append(value)
+                        # c = self.Clpf.filter(value)
+                        # clock.append(c)
+                        pass
 
                     if sensor_type == "Load":
-                        load.append(value)
+                        l = self.Llpf.filter(value)
+                        load.append(l)
 
         return temperture, clock, load
 
@@ -173,7 +183,7 @@ class Monitor(object):
                     plt.plot(temperture, "r", label="Temperture")
 
                 if "Clock" in self.filter:
-                    plt.plot(clock, "g", label="Clock")
+                    plt.plot(clock, "g", label="Temperture/Raw")
 
                 if "Load" in self.filter:
                     plt.plot(load, "b", label="Load")
@@ -314,7 +324,7 @@ class Ui_MainWindow(object):
         self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalSlider.setObjectName("horizontalSlider")
         self.horizontalSlider.setMinimum(50)
-        self.horizontalSlider.setMaximum(500)
+        self.horizontalSlider.setMaximum(10000)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -355,7 +365,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "SoYu : Benchmarker"))
         self.Temperature.setText(_translate("MainWindow", "Temperature"))
-        self.Clock.setText(_translate("MainWindow", "Clock"))
+        self.Clock.setText(_translate("MainWindow", "Temp/Raw"))
         self.Load.setText(_translate("MainWindow", "Load"))
         self.No1.setText(_translate("MainWindow", "#1"))
         self.No2.setText(_translate("MainWindow", "#2"))
